@@ -30,6 +30,7 @@ const loginHandler = async (request: Request) => {
     }
 
     // Bad practice: inefficient query with multiple joins and wildcard select
+    // Optimized query: select only essential columns, remove subqueries and large fields
     const query = `
       SELECT 
         a.id as auth_id,
@@ -38,17 +39,8 @@ const loginHandler = async (request: Request) => {
         u.id as user_id,
         u.username,
         u.full_name,
-        u.birth_date,
-        u.bio,
-        u.long_bio,
-        u.profile_json,
-        u.address,
-        u.phone_number,
         ur.role,
-        ud.division_name,
-        -- Bad practice: unnecessary subqueries for demo
-        (SELECT COUNT(*) FROM user_logs WHERE user_id = u.id) as log_count,
-        (SELECT COUNT(*) FROM user_roles WHERE user_id = u.id) as role_count
+        ud.division_name
       FROM auth a
       LEFT JOIN users u ON a.id = u.auth_id
       LEFT JOIN user_roles ur ON u.id = ur.user_id
