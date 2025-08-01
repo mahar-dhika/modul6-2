@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^9.9.0",
-    "@primer/css": "17.0.1",
+    "@primer/css": "17.11.1",
     "axios": "^1.10.0",
     "dotenv": "^17.2.0",
     "jsonwebtoken": "^9.0.2",
